@@ -1,0 +1,204 @@
+﻿import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { createGig } from '../api/gigs';
+
+export default function PostGig() {
+  const navigate = useNavigate();
+  const [form, setForm] = useState({
+    title: '',
+    description: '',
+    skillsRequired: '',
+    budgetMin: '',
+    budgetMax: '',
+    city: '',
+    state: '',
+    remote: false,
+  });
+  const [milestones, setMilestones] = useState([{ title: '', amount: '' }]);
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const updateMilestone = (i, key, value) => {
+    const copy = [...milestones];
+    copy[i][key] = value;
+    setMilestones(copy);
+  };
+
+  const addMilestone = () => setMilestones([...milestones, { title: '', amount: '' }]);
+  const removeMilestone = (i) => setMilestones(milestones.filter((_, idx) => idx !== i));
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
+    setLoading(true);
+    try {
+      await createGig({
+        title: form.title,
+        description: form.description,
+        skillsRequired: form.skillsRequired.split(',').map((s) => s.trim()).filter(Boolean),
+        budget: { min: Number(form.budgetMin), max: Number(form.budgetMax) },
+        milestones: milestones
+          .filter((m) => m.title && m.amount)
+          .map((m) => ({ title: m.title, amount: Number(m.amount) })),
+        location: { city: form.city, state: form.state, remote: form.remote },
+      });
+      navigate('/client');
+    } catch (err) {
+      setError(err.response?.data?.message || 'Failed to create gig');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const inputClass =
+    'w-full bg-white/5 border border-white/10 rounded px-4 py-2 text-white focus:outline-none focus:border-amber';
+  const labelClass = 'block text-white/70 text-sm mb-1 font-mono';
+
+  return (
+    <div className="min-h-screen bg-ink text-white px-6 py-10">
+      <div className="max-w-2xl mx-auto">
+        <h1 className="font-serif text-3xl mb-1">Post a Gig</h1>
+        <p className="text-white/50 font-mono text-sm mb-8">describe the work you need done</p>
+
+        {error && (
+          <div className="bg-red-500/10 border border-red-500/30 text-red-400 text-sm px-4 py-2 rounded mb-4">
+            {error}
+          </div>
+        )}
+
+        <form onSubmit={handleSubmit} className="space-y-5">
+          <div>
+            <label className={labelClass}>Title</label>
+            <input
+              required
+              value={form.title}
+              onChange={(e) => setForm({ ...form, title: e.target.value })}
+              className={inputClass}
+              placeholder="e.g. Build a React landing page"
+            />
+          </div>
+
+          <div>
+            <label className={labelClass}>Description</label>
+            <textarea
+              required
+              rows={4}
+              value={form.description}
+              onChange={(e) => setForm({ ...form, description: e.target.value })}
+              className={inputClass}
+            />
+          </div>
+
+          <div>
+            <label className={labelClass}>Skills Required (comma-separated)</label>
+            <input
+              required
+              value={form.skillsRequired}
+              onChange={(e) => setForm({ ...form, skillsRequired: e.target.value })}
+              className={inputClass}
+              placeholder="React, Node.js, MongoDB"
+            />
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className={labelClass}>Budget Min (₹)</label>
+              <input
+                type="number"
+                required
+                value={form.budgetMin}
+                onChange={(e) => setForm({ ...form, budgetMin: e.target.value })}
+                className={inputClass}
+              />
+            </div>
+            <div>
+              <label className={labelClass}>Budget Max (₹)</label>
+              <input
+                type="number"
+                required
+                value={form.budgetMax}
+                onChange={(e) => setForm({ ...form, budgetMax: e.target.value })}
+                className={inputClass}
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className={labelClass}>City</label>
+              <input
+                value={form.city}
+                onChange={(e) => setForm({ ...form, city: e.target.value })}
+                className={inputClass}
+              />
+            </div>
+            <div>
+              <label className={labelClass}>State</label>
+              <input
+                value={form.state}
+                onChange={(e) => setForm({ ...form, state: e.target.value })}
+                className={inputClass}
+              />
+            </div>
+          </div>
+
+          <label className="flex items-center gap-2 text-white/70 text-sm font-mono">
+            <input
+              type="checkbox"
+              checked={form.remote}
+              onChange={(e) => setForm({ ...form, remote: e.target.checked })}
+            />
+            Remote OK
+          </label>
+
+          <div>
+            <label className={labelClass}>Milestones</label>
+            <div className="space-y-2">
+              {milestones.map((m, i) => (
+                <div key={i} className="flex gap-2">
+                  <input
+                    placeholder="Milestone title"
+                    value={m.title}
+                    onChange={(e) => updateMilestone(i, 'title', e.target.value)}
+                    className={inputClass}
+                  />
+                  <input
+                    type="number"
+                    placeholder="₹ amount"
+                    value={m.amount}
+                    onChange={(e) => updateMilestone(i, 'amount', e.target.value)}
+                    className={`${inputClass} w-40`}
+                  />
+                  {milestones.length > 1 && (
+                    <button
+                      type="button"
+                      onClick={() => removeMilestone(i)}
+                      className="text-red-400 px-2"
+                    >
+                      ✕
+                    </button>
+                  )}
+                </div>
+              ))}
+            </div>
+            <button
+              type="button"
+              onClick={addMilestone}
+              className="mt-2 text-amber text-sm font-mono hover:underline"
+            >
+              + Add milestone
+            </button>
+          </div>
+
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-amber text-ink font-semibold py-2 rounded hover:opacity-90 transition disabled:opacity-50"
+          >
+            {loading ? 'Posting...' : 'Post Gig'}
+          </button>
+        </form>
+      </div>
+    </div>
+  );
+}

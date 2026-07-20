@@ -1,0 +1,11 @@
+﻿import api from './axios';
+export const getAdminStats = () => api.get('/admin/stats').then((r) => r.data);
+export const getAdminUsers = (role) => api.get('/admin/users', { params: { role } }).then((r) => r.data);
+export const toggleSuspendUser = (id) => api.put(`/admin/users/${id}/toggle-suspend`).then((r) => r.data);
+export const verifyFreelancer = (userId) => api.put(`/admin/freelancers/${userId}/verify`).then((r) => r.data);
+export const getAdminGigs = () => api.get('/admin/gigs').then((r) => r.data);
+export const getPendingGigs = () => api.get('/admin/gigs/pending').then((r) => r.data);
+export const approveGig = (id) => api.put(`/admin/gigs/${id}/approve`).then((r) => r.data);
+export const rejectGig = (id) => api.put(`/admin/gigs/${id}/reject`).then((r) => r.data);
+export const getAdminSettings = () => api.get('/admin/settings').then((r) => r.data);
+export const updateAdminSettings = (data) => api.put('/admin/settings', data).then((r) => r.data);
