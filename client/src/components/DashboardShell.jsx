@@ -2,7 +2,7 @@
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { logout } from '../store/authSlice';
 import NotificationBell from './NotificationBell';
-import ThemeToggle from './ThemeToggle';
+
 
 export default function DashboardShell({ title, children }) {
   const user = useSelector((s) => s.auth.user);
@@ -62,9 +62,7 @@ export default function DashboardShell({ title, children }) {
         </nav>
 
         <div className="pt-4 border-t border-white/15 space-y-3 shrink-0">
-          <div className="px-2">
-            <ThemeToggle />
-          </div>
+
           <div className="flex items-center gap-2 px-2">
             <span className="text-white/70 text-sm font-mono truncate">{user?.name}</span>
           </div>
@@ -81,6 +79,9 @@ export default function DashboardShell({ title, children }) {
     </div>
   );
 }
+
+
+
 
 
 

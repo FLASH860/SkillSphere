@@ -125,7 +125,7 @@ export default function FreelancerDashboard() {
                 <BarChart data={stats.earnings}>
                   <XAxis dataKey="name" stroke="var(--color-text-secondary)" fontSize={11} />
                   <YAxis stroke="var(--color-text-secondary)" fontSize={12} />
-                  <Tooltip contentStyle={{ background: 'var(--color-surface-alt)', border: '1px solid var(--color-border)' }} cursor={{ fill: 'rgba(147, 112, 219, 0.12)' }} />
+                  <Tooltip contentStyle={{ background: 'var(--color-surface-alt)', border: '1px solid var(--color-border)' }} cursor={{ fill: 'rgba(232, 163, 61, 0.12)' }} />
                   <Bar dataKey="amount" fill="var(--color-sage)" radius={[4, 4, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
@@ -146,7 +146,7 @@ export default function FreelancerDashboard() {
             <BarChart data={reviewStats.distribution}>
               <XAxis dataKey="name" stroke="var(--color-text-secondary)" fontSize={12} />
               <YAxis stroke="var(--color-text-secondary)" fontSize={12} allowDecimals={false} />
-              <Tooltip contentStyle={{ background: 'var(--color-surface-alt)', border: '1px solid var(--color-border)' }} cursor={{ fill: 'rgba(147, 112, 219, 0.12)' }} />
+              <Tooltip contentStyle={{ background: 'var(--color-surface-alt)', border: '1px solid var(--color-border)' }} cursor={{ fill: 'rgba(232, 163, 61, 0.12)' }} />
               <Bar dataKey="count" fill="var(--color-amber)" radius={[4, 4, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
@@ -161,3 +161,4 @@ export default function FreelancerDashboard() {
     </DashboardShell>
   );
 }
+
