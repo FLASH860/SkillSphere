@@ -1,6 +1,7 @@
 ﻿import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getGigById, updateGig } from '../api/gigs';
+import DashboardShell from '../components/DashboardShell';
 
 export default function EditGig() {
   const navigate = useNavigate();
@@ -74,24 +75,24 @@ export default function EditGig() {
   };
 
   const inputClass =
-    'w-full bg-white/5 border border-white/10 rounded px-4 py-2 text-white focus:outline-none focus:border-amber';
-  const labelClass = 'block text-white/70 text-sm mb-1 font-mono';
+    'w-full bg-surface border border-border rounded px-4 py-2 text-text-primary focus:outline-none focus:border-amber';
+  const labelClass = 'block text-text-primary text-sm mb-1 font-mono';
 
   if (fetching) {
     return (
-      <div className="min-h-screen bg-ink text-white px-6 py-10">
-        <div className="max-w-2xl mx-auto">
-          <p className="text-white/40 font-mono text-sm">Loading...</p>
+      <DashboardShell title="Edit Gig">
+        <div className="max-w-2xl">
+          <p className="text-text-muted font-mono text-sm">Loading...</p>
         </div>
-      </div>
+      </DashboardShell>
     );
   }
 
   return (
-    <div className="min-h-screen bg-ink text-white px-6 py-10">
-      <div className="max-w-2xl mx-auto">
+    <DashboardShell title="Edit Gig">
+      <div className="max-w-2xl">
         <h1 className="font-serif text-3xl mb-1">Edit Gig</h1>
-        <p className="text-white/50 font-mono text-sm mb-8">update the details of your gig</p>
+        <p className="text-text-secondary font-mono text-sm mb-8">update the details of your gig</p>
 
         {error && (
           <div className="bg-red-500/10 border border-red-500/30 text-red-400 text-sm px-4 py-2 rounded mb-4">
@@ -173,7 +174,7 @@ export default function EditGig() {
             </div>
           </div>
 
-          <label className="flex items-center gap-2 text-white/70 text-sm font-mono">
+          <label className="flex items-center gap-2 text-text-secondary text-sm font-mono">
             <input
               type="checkbox"
               checked={form.remote}
@@ -230,6 +231,15 @@ export default function EditGig() {
           </button>
         </form>
       </div>
-    </div>
+    </DashboardShell>
   );
 }
+
+
+
+
+
+
+
+
+

@@ -14,7 +14,7 @@ export default function StarRating({ value, onChange, readOnly = false }) {
           onMouseEnter={() => !readOnly && setHover(star)}
           onMouseLeave={() => !readOnly && setHover(0)}
           className={`text-2xl transition ${readOnly ? 'cursor-default' : 'cursor-pointer'} ${
-            star <= (hover || value) ? 'text-amber' : 'text-white/20'
+            star <= (hover || value) ? 'text-amber' : 'text-text-muted'
           }`}
         >
           ★
@@ -23,3 +23,4 @@ export default function StarRating({ value, onChange, readOnly = false }) {
     </div>
   );
 }
+

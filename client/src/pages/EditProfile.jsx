@@ -5,6 +5,7 @@ import { setup2FA, enable2FA, disable2FA } from '../api/twofa';
 import { uploadToCloudinary } from '../api/upload';
 import { setCredentials } from '../store/authSlice';
 import DashboardShell from '../components/DashboardShell';
+import ThemeToggle from '../components/ThemeToggle';
 
 const LEVELS = ['beginner', 'intermediate', 'expert'];
 const DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
@@ -185,13 +186,13 @@ export default function EditProfile() {
   };
 
   const inputClass =
-    'w-full bg-white/5 border border-white/10 rounded px-4 py-2 text-white focus:outline-none focus:border-amber';
-  const labelClass = 'block text-white/70 text-sm mb-1 font-mono';
+    'w-full bg-surface border border-border rounded px-4 py-2 text-text-primary focus:outline-none focus:border-amber';
+  const labelClass = 'block text-text-primary text-sm mb-1 font-mono';
 
   if (loading) {
     return (
       <DashboardShell title="Edit Profile">
-        <p className="text-white/40 font-mono text-sm">Loading...</p>
+        <p className="text-text-muted font-mono text-sm">Loading...</p>
       </DashboardShell>
     );
   }
@@ -226,10 +227,10 @@ export default function EditProfile() {
             {skills.map((s, idx) => (
               <span
                 key={idx}
-                className="flex items-center gap-2 text-xs font-mono bg-white/10 px-3 py-1.5 rounded text-white/80"
+                className="flex items-center gap-2 text-xs font-mono bg-surface-alt px-3 py-1.5 rounded text-text-primary"
               >
                 {s.name} <span className="text-sage">({s.level})</span>
-                <button onClick={() => removeSkill(idx)} className="text-white/40 hover:text-red-400">
+                <button onClick={() => removeSkill(idx)} className="text-text-muted hover:text-red-400">
                   ×
                 </button>
               </span>
@@ -246,7 +247,7 @@ export default function EditProfile() {
             <select
               value={newLevel}
               onChange={(e) => setNewLevel(e.target.value)}
-              className="bg-white/5 border border-white/10 rounded px-3 py-2 text-white text-sm"
+              className="bg-surface border border-border rounded px-3 py-2 text-text-primary text-sm"
             >
               {LEVELS.map((l) => (
                 <option key={l} value={l}>{l}</option>
@@ -254,7 +255,7 @@ export default function EditProfile() {
             </select>
             <button
               onClick={addSkill}
-              className="bg-white/10 text-white px-4 py-2 rounded text-sm hover:bg-white/20"
+              className="bg-surface-alt text-text-primary px-4 py-2 rounded text-sm hover:bg-surface-alt"
             >
               Add
             </button>
@@ -271,7 +272,7 @@ export default function EditProfile() {
           <label className={labelClass}>Portfolio</label>
           <div className="grid grid-cols-2 gap-3 mb-3">
             {portfolio.map((p, idx) => (
-              <div key={idx} className="bg-white/5 border border-white/10 rounded-lg overflow-hidden">
+              <div key={idx} className="bg-surface border border-border rounded-lg overflow-hidden">
                 {p.imageUrl && (
                   <img
                     src={p.imageUrl}
@@ -285,7 +286,7 @@ export default function EditProfile() {
                     value={p.title}
                     onChange={(e) => updatePortfolioItem(idx, 'title', e.target.value)}
                     placeholder="Project title"
-                    className="w-full bg-white/5 border border-white/10 rounded px-2 py-1 text-white text-sm"
+                    className="w-full bg-surface border border-border rounded px-2 py-1 text-text-primary text-sm"
                   />
 
                   <button
@@ -298,7 +299,7 @@ export default function EditProfile() {
               </div>
             ))}
           </div>
-          <label className="inline-block cursor-pointer bg-white/10 text-white px-4 py-2 rounded text-sm hover:bg-white/20">
+          <label className="inline-block cursor-pointer bg-surface-alt text-text-primary px-4 py-2 rounded text-sm hover:bg-surface-alt">
             {uploadingPortfolio ? 'Uploading...' : '+ Add portfolio image'}
             <input
               type="file"
@@ -322,7 +323,7 @@ export default function EditProfile() {
               {resumeUrl}
             </a>
           )}
-          <label className="inline-block cursor-pointer bg-white/10 text-white px-4 py-2 rounded text-sm hover:bg-white/20">
+          <label className="inline-block cursor-pointer bg-surface-alt text-text-primary px-4 py-2 rounded text-sm hover:bg-surface-alt">
             {uploadingResume ? 'Uploading...' : resumeUrl ? 'Replace resume' : '+ Upload resume'}
             <input
               type="file"
@@ -340,13 +341,13 @@ export default function EditProfile() {
             {certifications.map((c, idx) => (
               <div
                 key={idx}
-                className="flex items-center justify-between bg-white/5 border border-white/10 rounded px-3 py-2"
+                className="flex items-center justify-between bg-surface border border-border rounded px-3 py-2"
               >
-                <span className="text-white/80 text-sm">
-                  {c.name} {c.issuer && <span className="text-white/40">· {c.issuer}</span>}{' '}
+                <span className="text-text-primary text-sm">
+                  {c.name} {c.issuer && <span className="text-text-muted">· {c.issuer}</span>}{' '}
                   {c.year && <span className="text-sage font-mono text-xs">({c.year})</span>}
                 </span>
-                <button onClick={() => removeCertification(idx)} className="text-white/40 hover:text-red-400">
+                <button onClick={() => removeCertification(idx)} className="text-text-muted hover:text-red-400">
                   ×
                 </button>
               </div>
@@ -374,7 +375,7 @@ export default function EditProfile() {
             />
             <button
               onClick={addCertification}
-              className="bg-white/10 text-white px-4 py-2 rounded text-sm hover:bg-white/20"
+              className="bg-surface-alt text-text-primary px-4 py-2 rounded text-sm hover:bg-surface-alt"
             >
               Add
             </button>
@@ -385,18 +386,18 @@ export default function EditProfile() {
           <label className={labelClass}>Work Experience</label>
           <div className="space-y-2 mb-3">
             {experience.map((exp, idx) => (
-              <div key={idx} className="bg-white/5 border border-white/10 rounded px-3 py-2">
+              <div key={idx} className="bg-surface border border-border rounded px-3 py-2">
                 <div className="flex items-start justify-between">
                   <div>
-                    <p className="text-white/90 text-sm font-medium">{exp.title} <span className="text-white/40">@ {exp.company}</span></p>
-                    <p className="text-white/40 text-xs font-mono mt-0.5">
+                    <p className="text-text-primary text-sm font-medium">{exp.title} <span className="text-text-muted">@ {exp.company}</span></p>
+                    <p className="text-text-muted text-xs font-mono mt-0.5">
                       {exp.from || '—'} to {exp.to || 'Present'}
                     </p>
                     {exp.description && (
-                      <p className="text-white/60 text-xs mt-1">{exp.description}</p>
+                      <p className="text-text-secondary text-xs mt-1">{exp.description}</p>
                     )}
                   </div>
-                  <button onClick={() => removeExperience(idx)} className="text-white/40 hover:text-red-400 ml-2">
+                  <button onClick={() => removeExperience(idx)} className="text-text-muted hover:text-red-400 ml-2">
                     ×
                   </button>
                 </div>
@@ -441,7 +442,7 @@ export default function EditProfile() {
             />
             <button
               onClick={addExperience}
-              className="bg-white/10 text-white px-4 py-2 rounded text-sm hover:bg-white/20"
+              className="bg-surface-alt text-text-primary px-4 py-2 rounded text-sm hover:bg-surface-alt"
             >
               Add experience
             </button>
@@ -450,13 +451,13 @@ export default function EditProfile() {
 
         <div>
           <label className={labelClass}>Availability</label>
-          <div className="border border-white/10 rounded-lg overflow-hidden">
+          <div className="border border-border rounded-lg overflow-hidden">
             <table className="w-full text-sm">
               <thead>
-                <tr className="bg-white/5">
-                  <th className="text-left text-white/40 text-xs font-mono uppercase px-3 py-2">Day</th>
+                <tr className="bg-surface">
+                  <th className="text-left text-text-muted text-xs font-mono uppercase px-3 py-2">Day</th>
                   {SLOTS.map((s) => (
-                    <th key={s.key} className="text-white/40 text-xs font-mono uppercase px-3 py-2">
+                    <th key={s.key} className="text-text-muted text-xs font-mono uppercase px-3 py-2">
                       {s.label}
                     </th>
                   ))}
@@ -464,8 +465,8 @@ export default function EditProfile() {
               </thead>
               <tbody>
                 {availability.map((d) => (
-                  <tr key={d.day} className="border-t border-white/10">
-                    <td className="px-3 py-2 text-white/70 font-mono text-xs">{d.day}</td>
+                  <tr key={d.day} className="border-t border-border">
+                    <td className="px-3 py-2 text-text-secondary font-mono text-xs">{d.day}</td>
                     {SLOTS.map((s) => {
                       const active = d.slots.includes(s.key);
                       return (
@@ -476,7 +477,7 @@ export default function EditProfile() {
                             className={`w-5 h-5 rounded border transition ${
                               active
                                 ? 'bg-sage border-sage'
-                                : 'bg-white/5 border-white/20 hover:border-white/40'
+                                : 'bg-surface border-border hover:border-border-strong'
                             }`}
                             aria-label={`${d.day} ${s.label}`}
                           />
@@ -498,7 +499,15 @@ export default function EditProfile() {
         </button>
         {saved && <p className="text-sage text-sm font-mono">Saved ✓</p>}
 
-        <div className="border-t border-white/10 pt-6">
+        <div className="border-t border-border pt-6">
+          <h2 className="font-serif text-xl mb-4">Appearance</h2>
+          <div className="flex items-center justify-between bg-surface border border-border rounded px-4 py-3 mb-6">
+            <span className="text-sm font-mono text-text-secondary">Interface theme</span>
+            <ThemeToggle />
+          </div>
+        </div>
+
+        <div className="border-t border-border pt-6">
           <h2 className="font-serif text-xl mb-4">Security</h2>
 
           {twoFAEnabled && !qrDataUrl && (
@@ -514,8 +523,8 @@ export default function EditProfile() {
           )}
 
           {!twoFAEnabled && !qrDataUrl && (
-            <div className="flex items-center justify-between bg-white/5 border border-white/10 rounded px-4 py-3">
-              <span className="text-white/60 text-sm font-mono">Two-Factor Authentication is off</span>
+            <div className="flex items-center justify-between bg-surface border border-border rounded px-4 py-3">
+              <span className="text-text-secondary text-sm font-mono">Two-Factor Authentication is off</span>
               <button
                 onClick={handleStart2FASetup}
                 className="text-xs font-mono bg-amber text-ink px-3 py-1 rounded hover:opacity-90"
@@ -526,8 +535,8 @@ export default function EditProfile() {
           )}
 
           {qrDataUrl && (
-            <div className="bg-white/5 border border-white/10 rounded px-4 py-4 space-y-3">
-              <p className="text-white/70 text-sm">
+            <div className="bg-surface border border-border rounded px-4 py-4 space-y-3">
+              <p className="text-text-secondary text-sm">
                 Scan this QR code with Google Authenticator (or any TOTP app), then enter the 6-digit code below.
               </p>
               <img src={qrDataUrl} alt="2FA QR Code" className="bg-white p-2 rounded w-40 h-40" />
@@ -537,7 +546,7 @@ export default function EditProfile() {
                   onChange={(e) => setSetupCode(e.target.value.replace(/\D/g, ''))}
                   maxLength={6}
                   placeholder="000000"
-                  className="bg-white/5 border border-white/10 rounded px-3 py-2 text-white text-center tracking-[0.3em] font-mono w-32"
+                  className="bg-surface border border-border rounded px-3 py-2 text-text-primary text-center tracking-[0.3em] font-mono w-32"
                 />
                 <button
                   onClick={handleConfirm2FA}
@@ -566,7 +575,7 @@ export default function EditProfile() {
           />
           <button
             onClick={() => setLightboxImage(null)}
-            className="absolute top-6 right-6 text-white/70 hover:text-white text-3xl leading-none"
+            className="absolute top-6 right-6 text-text-secondary hover:text-text-primary text-3xl leading-none"
           >
             ×
           </button>
@@ -575,6 +584,13 @@ export default function EditProfile() {
     </DashboardShell>
   );
 }
+
+
+
+
+
+
+
 
 
 

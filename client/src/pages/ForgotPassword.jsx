@@ -25,8 +25,8 @@ export default function ForgotPassword() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-ink px-4">
       <div className="w-full max-w-md">
-        <h1 className="font-serif text-4xl text-white mb-2">SkillSphere</h1>
-        <p className="text-white/50 font-mono text-sm mb-8">reset your password</p>
+        <h1 className="font-serif text-4xl text-text-primary mb-2">SkillSphere</h1>
+        <p className="text-text-secondary font-mono text-sm mb-8">reset your password</p>
 
         {sent ? (
           <div className="bg-sage/10 border border-sage/30 text-sage text-sm px-4 py-3 rounded">
@@ -42,13 +42,13 @@ export default function ForgotPassword() {
             )}
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="block text-white/70 text-sm mb-1 font-mono">Email</label>
+                <label className="block text-text-secondary text-sm mb-1 font-mono">Email</label>
                 <input
                   type="email"
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full bg-white/5 border border-white/10 rounded px-4 py-2 text-white focus:outline-none focus:border-amber"
+                  className="w-full bg-surface border border-border rounded px-4 py-2 text-text-primary focus:outline-none focus:border-amber"
                 />
               </div>
               <button
@@ -62,7 +62,7 @@ export default function ForgotPassword() {
           </>
         )}
 
-        <p className="text-white/50 text-sm mt-6 text-center">
+        <p className="text-text-secondary text-sm mt-6 text-center">
           <Link to="/login" className="text-amber hover:underline">
             Back to login
           </Link>
@@ -71,3 +71,4 @@ export default function ForgotPassword() {
     </div>
   );
 }
+

@@ -50,7 +50,7 @@ export default function NotificationBell() {
     <div className="relative" ref={ref}>
       <button
         onClick={() => setOpen((o) => !o)}
-        className="relative text-white/70 hover:text-amber transition"
+        className="relative text-text-secondary hover:text-amber transition"
         aria-label="Notifications"
       >
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -65,9 +65,9 @@ export default function NotificationBell() {
       </button>
 
       {open && (
-        <div className="absolute right-0 mt-2 w-80 bg-ink border border-white/10 rounded shadow-lg z-50 max-h-96 overflow-y-auto">
-          <div className="flex items-center justify-between px-4 py-2 border-b border-white/10">
-            <span className="text-white/80 text-sm font-mono">Notifications</span>
+        <div className="absolute left-0 mt-2 w-80 bg-ink border border-border rounded shadow-lg z-50 max-h-96 overflow-y-auto">
+          <div className="flex items-center justify-between px-4 py-2 border-b border-border">
+            <span className="text-text-primary text-sm font-mono">Notifications</span>
             {unreadCount > 0 && (
               <button onClick={handleMarkAll} className="text-amber text-xs font-mono hover:underline">
                 Mark all read
@@ -75,18 +75,18 @@ export default function NotificationBell() {
             )}
           </div>
           {items.length === 0 ? (
-            <p className="text-white/40 text-sm p-4 font-mono">No notifications yet</p>
+            <p className="text-text-muted text-sm p-4 font-mono">No notifications yet</p>
           ) : (
             items.map((n) => (
               <button
                 key={n._id}
                 onClick={() => handleClick(n)}
-                className={`w-full text-left px-4 py-3 border-b border-white/5 hover:bg-white/5 transition ${
+                className={`w-full text-left px-4 py-3 border-b border-border hover:bg-surface transition ${
                   n.read ? 'opacity-50' : ''
                 }`}
               >
-                <p className="text-sm text-white/90">{n.message}</p>
-                <p className="text-xs text-white/40 font-mono mt-1">
+                <p className="text-sm text-text-primary">{n.message}</p>
+                <p className="text-xs text-text-muted font-mono mt-1">
                   {new Date(n.createdAt).toLocaleString()}
                 </p>
               </button>
@@ -97,3 +97,5 @@ export default function NotificationBell() {
     </div>
   );
 }
+
+

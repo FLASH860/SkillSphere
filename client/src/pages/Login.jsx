@@ -39,8 +39,8 @@ export default function Login() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-ink px-4">
       <div className="w-full max-w-md">
-        <h1 className="font-serif text-4xl text-white mb-2">SkillSphere</h1>
-        <p className="text-white/50 font-mono text-sm mb-8">sign in to your account</p>
+        <h1 className="font-serif text-4xl text-text-primary mb-2">SkillSphere</h1>
+        <p className="text-text-secondary font-mono text-sm mb-8">sign in to your account</p>
         {error && (
           <div className="bg-red-500/10 border border-red-500/30 text-red-400 text-sm px-4 py-2 rounded mb-4">
             {error}
@@ -50,23 +50,23 @@ export default function Login() {
           {!needs2FA && (
             <>
               <div>
-                <label className="block text-white/70 text-sm mb-1 font-mono">Email</label>
+                <label className="block text-text-secondary text-sm mb-1 font-mono">Email</label>
                 <input
                   type="email"
                   required
                   value={form.email}
                   onChange={(e) => setForm({ ...form, email: e.target.value })}
-                  className="w-full bg-white/5 border border-white/10 rounded px-4 py-2 text-white focus:outline-none focus:border-amber"
+                  className="w-full bg-surface border border-border rounded px-4 py-2 text-text-primary focus:outline-none focus:border-amber"
                 />
               </div>
               <div>
-                <label className="block text-white/70 text-sm mb-1 font-mono">Password</label>
+                <label className="block text-text-secondary text-sm mb-1 font-mono">Password</label>
                 <input
                   type="password"
                   required
                   value={form.password}
                   onChange={(e) => setForm({ ...form, password: e.target.value })}
-                  className="w-full bg-white/5 border border-white/10 rounded px-4 py-2 text-white focus:outline-none focus:border-amber"
+                  className="w-full bg-surface border border-border rounded px-4 py-2 text-text-primary focus:outline-none focus:border-amber"
                 />
                 <div className="text-right mt-1">
                   <Link to="/forgot-password" className="text-amber text-xs hover:underline">
@@ -79,7 +79,7 @@ export default function Login() {
 
           {needs2FA && (
             <div>
-              <label className="block text-white/70 text-sm mb-1 font-mono">
+              <label className="block text-text-secondary text-sm mb-1 font-mono">
                 Enter your 6-digit authenticator code
               </label>
               <input
@@ -89,7 +89,7 @@ export default function Login() {
                 autoFocus
                 value={twoFactorCode}
                 onChange={(e) => setTwoFactorCode(e.target.value.replace(/\D/g, ''))}
-                className="w-full bg-white/5 border border-white/10 rounded px-4 py-2 text-white text-center tracking-[0.5em] font-mono focus:outline-none focus:border-amber"
+                className="w-full bg-surface border border-border rounded px-4 py-2 text-text-primary text-center tracking-[0.5em] font-mono focus:outline-none focus:border-amber"
                 placeholder="000000"
               />
               
@@ -105,7 +105,7 @@ export default function Login() {
           </button>
         </form>
         {!needs2FA && (
-          <p className="text-white/50 text-sm mt-6 text-center">
+          <p className="text-text-secondary text-sm mt-6 text-center">
             No account?{' '}
             <Link to="/register" className="text-amber hover:underline">
               Register
@@ -116,6 +116,7 @@ export default function Login() {
     </div>
   );
 }
+
 
 
 

@@ -31,8 +31,8 @@ export default function Register() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-ink px-4">
       <div className="w-full max-w-md">
-        <h1 className="font-serif text-4xl text-white mb-2">SkillSphere</h1>
-        <p className="text-white/50 font-mono text-sm mb-8">create your account</p>
+        <h1 className="font-serif text-4xl text-text-primary mb-2">SkillSphere</h1>
+        <p className="text-text-secondary font-mono text-sm mb-8">create your account</p>
 
         {error && (
           <div className="bg-red-500/10 border border-red-500/30 text-red-400 text-sm px-4 py-2 rounded mb-4">
@@ -48,38 +48,38 @@ export default function Register() {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-white/70 text-sm mb-1 font-mono">Name</label>
+            <label className="block text-text-secondary text-sm mb-1 font-mono">Name</label>
             <input
               type="text"
               required
               value={form.name}
               onChange={(e) => setForm({ ...form, name: e.target.value })}
-              className="w-full bg-white/5 border border-white/10 rounded px-4 py-2 text-white focus:outline-none focus:border-amber"
+              className="w-full bg-surface border border-border rounded px-4 py-2 text-text-primary focus:outline-none focus:border-amber"
             />
           </div>
           <div>
-            <label className="block text-white/70 text-sm mb-1 font-mono">Email</label>
+            <label className="block text-text-secondary text-sm mb-1 font-mono">Email</label>
             <input
               type="email"
               required
               value={form.email}
               onChange={(e) => setForm({ ...form, email: e.target.value })}
-              className="w-full bg-white/5 border border-white/10 rounded px-4 py-2 text-white focus:outline-none focus:border-amber"
+              className="w-full bg-surface border border-border rounded px-4 py-2 text-text-primary focus:outline-none focus:border-amber"
             />
           </div>
           <div>
-            <label className="block text-white/70 text-sm mb-1 font-mono">Password</label>
+            <label className="block text-text-secondary text-sm mb-1 font-mono">Password</label>
             <input
               type="password"
               required
               minLength={6}
               value={form.password}
               onChange={(e) => setForm({ ...form, password: e.target.value })}
-              className="w-full bg-white/5 border border-white/10 rounded px-4 py-2 text-white focus:outline-none focus:border-amber"
+              className="w-full bg-surface border border-border rounded px-4 py-2 text-text-primary focus:outline-none focus:border-amber"
             />
           </div>
           <div>
-            <label className="block text-white/70 text-sm mb-1 font-mono">I am a</label>
+            <label className="block text-text-secondary text-sm mb-1 font-mono">I am a</label>
             <div className="grid grid-cols-2 gap-3">
               {['client', 'freelancer'].map((r) => (
                 <button
@@ -89,7 +89,7 @@ export default function Register() {
                   className={`py-2 rounded border capitalize transition ${
                     form.role === r
                       ? 'bg-amber text-ink border-amber font-semibold'
-                      : 'border-white/10 text-white/70 hover:border-white/30'
+                      : 'border-border text-text-secondary hover:border-border-strong'
                   }`}
                 >
                   {r}
@@ -106,7 +106,7 @@ export default function Register() {
           </button>
         </form>
 
-        <p className="text-white/50 text-sm mt-6 text-center">
+        <p className="text-text-secondary text-sm mt-6 text-center">
           Already have an account?{' '}
           <Link to="/login" className="text-amber hover:underline">
             Sign in
@@ -116,5 +116,6 @@ export default function Register() {
     </div>
   );
 }
+
 
 

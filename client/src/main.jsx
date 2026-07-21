@@ -7,6 +7,8 @@ import { store } from './store/store';
 import App from './App';
 import './index.css';
 
+document.documentElement.setAttribute('data-theme', localStorage.getItem('theme') || 'dark');
+
 const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -20,3 +22,4 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     </Provider>
   </React.StrictMode>
 );
+

@@ -160,7 +160,7 @@ export default function GigDetail() {
   if (isLoading) {
     return (
       <DashboardShell title="Gig Detail">
-        <p className="text-white/40 font-mono text-sm">Loading...</p>
+        <p className="text-text-muted font-mono text-sm">Loading...</p>
       </DashboardShell>
     );
   }
@@ -168,14 +168,14 @@ export default function GigDetail() {
   if (!gig) {
     return (
       <DashboardShell title="Gig Detail">
-        <p className="text-white/40 font-mono text-sm">Gig not found.</p>
+        <p className="text-text-muted font-mono text-sm">Gig not found.</p>
       </DashboardShell>
     );
   }
 
   const inputClass =
-    'w-full bg-white/5 border border-white/10 rounded px-4 py-2 text-white focus:outline-none focus:border-amber';
-  const labelClass = 'block text-white/70 text-sm mb-1 font-mono';
+    'w-full bg-surface border border-border rounded px-4 py-2 text-text-primary focus:outline-none focus:border-amber';
+  const labelClass = 'block text-text-primary text-sm mb-1 font-mono';
   const isAssignedFreelancer = user?.role === 'freelancer' && user._id === gig.assignedFreelancer?._id;
   const isOwnerClient = user?.role === 'client' && user._id === gig.client?._id;
   const currentProgress = progressDraft !== null ? progressDraft : gig.progressPercent || 0;
@@ -185,20 +185,20 @@ export default function GigDetail() {
       <div className="max-w-3xl">
         <button
           onClick={() => navigate(-1)}
-          className="text-white/40 text-sm font-mono mb-4 hover:text-amber"
+          className="text-text-muted text-sm font-mono mb-4 hover:text-amber"
         >
           ← back
         </button>
 
         <h1 className="font-serif text-3xl mb-2">{gig.title}</h1>
         <div className="flex items-center justify-between mb-4">
-          <p className="text-white/40 font-mono text-sm">
+          <p className="text-text-muted font-mono text-sm">
             posted by {gig.client?.name || 'a client'}
           </p>
           {user?.role === 'freelancer' && gig.client?._id && user._id !== gig.client._id && (
             <Link
               to={`/messages?with=${gig.client._id}&name=${encodeURIComponent(gig.client.name)}`}
-              className="text-xs font-mono border border-white/20 px-3 py-1 rounded hover:border-amber hover:text-amber transition"
+              className="text-xs font-mono border border-border px-3 py-1 rounded hover:border-amber hover:text-amber transition"
             >
               Message Client
             </Link>
@@ -206,7 +206,7 @@ export default function GigDetail() {
           {user?.role === 'client' && gig.status === 'in_progress' && gig.assignedFreelancer && user._id !== gig.assignedFreelancer._id && (
             <Link
               to={`/messages?with=${gig.assignedFreelancer._id}&name=${encodeURIComponent(gig.assignedFreelancer.name)}`}
-              className="text-xs font-mono border border-white/20 px-3 py-1 rounded hover:border-amber hover:text-amber transition"
+              className="text-xs font-mono border border-border px-3 py-1 rounded hover:border-amber hover:text-amber transition"
             >
               Message {gig.assignedFreelancer.name}
             </Link>
@@ -229,32 +229,32 @@ export default function GigDetail() {
               </p>
             ) : (
               <>
-                <label className="block text-white/70 text-sm mb-2 font-mono">
+                <label className="block text-text-secondary text-sm mb-2 font-mono">
                   What's the issue?
                 </label>
                 <textarea
                   rows={3}
                   value={disputeReason}
                   onChange={(e) => setDisputeReason(e.target.value)}
-                  className="w-full bg-white/5 border border-white/10 rounded px-4 py-2 text-white focus:outline-none focus:border-red-400 mb-3"
+                  className="w-full bg-surface border border-border rounded px-4 py-2 text-text-primary focus:outline-none focus:border-red-400 mb-3"
                   placeholder="Describe the problem with this gig..."
                 />
                 <div className="mb-3">
                   <div className="flex flex-wrap gap-2 mb-2">
                     {disputeEvidence.map((url, idx) => (
                       <div key={idx} className="relative">
-                        <img src={url} alt="evidence" className="w-16 h-16 object-cover rounded border border-white/20" />
+                        <img src={url} alt="evidence" className="w-16 h-16 object-cover rounded border border-border" />
                         <button
                           type="button"
                           onClick={() => removeEvidence(idx)}
-                          className="absolute -top-1.5 -right-1.5 bg-red-500 text-white text-xs w-4 h-4 rounded-full flex items-center justify-center"
+                          className="absolute -top-1.5 -right-1.5 bg-red-500 text-text-primary text-xs w-4 h-4 rounded-full flex items-center justify-center"
                         >
                           ×
                         </button>
                       </div>
                     ))}
                   </div>
-                  <label className="inline-block cursor-pointer text-xs font-mono border border-white/20 px-3 py-1.5 rounded hover:border-red-400 hover:text-red-400 transition">
+                  <label className="inline-block cursor-pointer text-xs font-mono border border-border px-3 py-1.5 rounded hover:border-red-400 hover:text-red-400 transition">
                     {uploadingEvidence ? 'Uploading...' : '+ Attach evidence'}
                     <input
                       type="file"
@@ -269,13 +269,13 @@ export default function GigDetail() {
                   <button
                     onClick={handleRaiseDispute}
                     disabled={!disputeReason.trim() || disputeMutation.isPending}
-                    className="text-xs font-mono bg-red-500/80 text-white px-4 py-1.5 rounded hover:opacity-90 disabled:opacity-40"
+                    className="text-xs font-mono bg-red-500/80 text-text-primary px-4 py-1.5 rounded hover:opacity-90 disabled:opacity-40"
                   >
                     {disputeMutation.isPending ? 'Submitting...' : 'Submit Dispute'}
                   </button>
                   <button
                     onClick={() => setShowDisputeForm(false)}
-                    className="text-xs font-mono border border-white/20 px-4 py-1.5 rounded hover:border-white/40"
+                    className="text-xs font-mono border border-border px-4 py-1.5 rounded hover:border-border-strong"
                   >
                     Cancel
                   </button>
@@ -284,11 +284,11 @@ export default function GigDetail() {
             )}
           </div>
         )}
-        <p className="text-white/70 mb-4">{gig.description}</p>
+        <p className="text-text-secondary mb-4">{gig.description}</p>
 
         <div className="flex flex-wrap gap-2 mb-4">
           {gig.skillsRequired.map((s) => (
-            <span key={s} className="text-xs font-mono bg-white/10 px-2 py-0.5 rounded text-white/70">
+            <span key={s} className="text-xs font-mono bg-surface-alt px-2 py-0.5 rounded text-text-secondary">
               {s}
             </span>
           ))}
@@ -298,15 +298,15 @@ export default function GigDetail() {
           <span className="text-amber text-lg">
             ₹{gig.budget.min.toLocaleString()} – ₹{gig.budget.max.toLocaleString()}
           </span>
-          <span className="text-white/40">
+          <span className="text-text-muted">
             {gig.location?.remote ? 'Remote' : gig.location?.city || '—'}
           </span>
           <span className="text-sage capitalize">{gig.status}</span>
         </div>
 
         {isOwnerClient && gig.assignedFreelancer && freelancerProfile?.profile?.availability?.length > 0 && (
-          <div className="mb-8 border border-white/10 bg-white/5 rounded-lg p-4">
-            <p className="text-white/50 text-xs font-mono uppercase mb-3">
+          <div className="mb-8 border border-border bg-surface rounded-lg p-4">
+            <p className="text-text-secondary text-xs font-mono uppercase mb-3">
               {gig.assignedFreelancer.name}'s Availability
             </p>
             <div className="flex flex-wrap gap-2">
@@ -321,15 +321,15 @@ export default function GigDetail() {
                         {gig.status === 'in_progress' && !existingBooking && bookingSlot !== key && (
                           <button
                             onClick={() => setBookingSlot(key)}
-                            className="bg-white/5 border border-white/10 rounded px-3 py-1.5 hover:border-amber transition text-left"
+                            className="bg-surface border border-border rounded px-3 py-1.5 hover:border-amber transition text-left"
                           >
-                            <span className="text-white/70 text-xs font-mono">{d.day}: </span>
+                            <span className="text-text-secondary text-xs font-mono">{d.day}: </span>
                             <span className="text-sage text-xs font-mono capitalize">{s}</span>
                           </button>
                         )}
                         {existingBooking && (
-                          <div className="bg-white/5 border border-white/10 rounded px-3 py-1.5">
-                            <span className="text-white/70 text-xs font-mono">{d.day}: </span>
+                          <div className="bg-surface border border-border rounded px-3 py-1.5">
+                            <span className="text-text-secondary text-xs font-mono">{d.day}: </span>
                             <span className="text-sage text-xs font-mono capitalize">{s}</span>
                             <span className={`ml-2 text-[10px] font-mono uppercase ${existingBooking.status === 'confirmed' ? 'text-sage' : existingBooking.status === 'declined' ? 'text-red-400' : 'text-amber'}`}>
                               {existingBooking.status}
@@ -343,7 +343,7 @@ export default function GigDetail() {
                               value={bookingMessage}
                               onChange={(e) => setBookingMessage(e.target.value)}
                               placeholder="Optional note..."
-                              className="bg-white/5 border border-white/10 rounded px-2 py-1 text-white text-xs mr-2 focus:outline-none focus:border-amber"
+                              className="bg-surface border border-border rounded px-2 py-1 text-text-primary text-xs mr-2 focus:outline-none focus:border-amber"
                             />
                             <button
                               onClick={() => handleRequestSlot(d.day, s)}
@@ -353,7 +353,7 @@ export default function GigDetail() {
                             </button>
                             <button
                               onClick={() => setBookingSlot(null)}
-                              className="border border-white/20 text-white/60 text-xs px-3 py-1 rounded"
+                              className="border border-border text-text-secondary text-xs px-3 py-1 rounded"
                             >
                               Cancel
                             </button>
@@ -364,16 +364,16 @@ export default function GigDetail() {
                   })
                 )}
               {freelancerProfile.profile.availability.every((d) => !d.slots?.length) && (
-                <p className="text-white/40 text-xs font-mono">No availability set yet.</p>
+                <p className="text-text-muted text-xs font-mono">No availability set yet.</p>
               )}
             </div>
           </div>
         )}
 
         {gig.status === 'in_progress' && (isAssignedFreelancer || isOwnerClient) && (
-          <div className="mb-8 border border-white/10 bg-white/5 rounded-lg p-4">
+          <div className="mb-8 border border-border bg-surface rounded-lg p-4">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-white/50 text-xs font-mono uppercase tracking-wide">
+              <span className="text-text-secondary text-xs font-mono uppercase tracking-wide">
                 Progress
               </span>
               <div className="flex items-center gap-3">
@@ -389,7 +389,7 @@ export default function GigDetail() {
                 )}
               </div>
             </div>
-            <div className="w-full h-2 bg-white/10 rounded-full overflow-hidden mb-3">
+            <div className="w-full h-2 bg-surface-alt rounded-full overflow-hidden mb-3">
               <div
                 className="h-full bg-amber transition-all"
                 style={{ width: `${currentProgress}%` }}
@@ -406,7 +406,7 @@ export default function GigDetail() {
               />
             )}
             {!isAssignedFreelancer && (
-              <p className="text-white/40 text-xs font-mono">
+              <p className="text-text-muted text-xs font-mono">
                 Updated by the assigned freelancer
               </p>
             )}
@@ -421,7 +421,7 @@ export default function GigDetail() {
               </span>
             </div>
             {recommended.length === 0 && (
-              <p className="text-white/40 text-sm font-mono">
+              <p className="text-text-muted text-sm font-mono">
                 No matching freelancers yet — check back once more freelancers join.
               </p>
             )}
@@ -429,15 +429,15 @@ export default function GigDetail() {
               {recommended.map((f) => (
                 <div
                   key={f._id}
-                  className="flex items-center justify-between bg-white/5 border border-white/10 rounded px-4 py-2"
+                  className="flex items-center justify-between bg-surface border border-border rounded px-4 py-2"
                 >
                   <div>
-                    <span className="text-white/90 text-sm font-medium">{f.name}</span>
+                    <span className="text-text-primary text-sm font-medium">{f.name}</span>
                     <div className="flex flex-wrap gap-1 mt-1">
                       {f.skills?.slice(0, 4).map((s) => (
                         <span
                           key={s.name}
-                          className="text-[10px] font-mono bg-white/10 px-1.5 py-0.5 rounded text-white/50"
+                          className="text-[10px] font-mono bg-surface-alt px-1.5 py-0.5 rounded text-text-secondary"
                         >
                           {s.name}
                         </span>
@@ -446,7 +446,7 @@ export default function GigDetail() {
                   </div>
                   <div className="text-right">
                     <span className="text-amber text-sm font-mono">{f.matchScore}% match</span>
-                    <p className="text-white/40 text-xs font-mono">★ {f.reputationScore?.toFixed(1) || '0.0'}</p>
+                    <p className="text-text-muted text-xs font-mono">★ {f.reputationScore?.toFixed(1) || '0.0'}</p>
                   </div>
                 </div>
               ))}
@@ -456,16 +456,16 @@ export default function GigDetail() {
 
         {gig.milestones?.length > 0 && (
           <div className="mb-8">
-            <p className="text-white/50 text-sm font-mono uppercase mb-2">Milestones</p>
+            <p className="text-text-secondary text-sm font-mono uppercase mb-2">Milestones</p>
             <div className="space-y-2">
               {gig.milestones.map((m) => {
                 const payStatus = getPaymentStatus(m.title);
                 return (
                   <div
                     key={m._id}
-                    className="flex justify-between items-center bg-white/5 border border-white/10 rounded px-4 py-2"
+                    className="flex justify-between items-center bg-surface border border-border rounded px-4 py-2"
                   >
-                    <span className="text-white/70 text-sm">{m.title}</span>
+                    <span className="text-text-secondary text-sm">{m.title}</span>
                     <div className="flex items-center gap-3">
                       <span className="text-amber text-sm font-mono">₹{m.amount.toLocaleString()}</span>
                       {user?.role === 'client' && gig.status === 'in_progress' && gig.assignedFreelancer && !payStatus && (
@@ -502,7 +502,7 @@ export default function GigDetail() {
         )}
 
         {user?.role === 'freelancer' && gig.status === 'open' && (
-          <div className="border-t border-white/10 pt-6">
+          <div className="border-t border-border pt-6">
             <h2 className="font-serif text-xl mb-4">Submit a Proposal</h2>
 
             {success ? (
@@ -561,7 +561,7 @@ export default function GigDetail() {
           </div>
         )}
         {gig.status === 'in_progress' && (user?._id === gig.client?._id || user?._id === gig.assignedFreelancer?._id) && (
-          <div className="border-t border-white/10 pt-6 mt-6">
+          <div className="border-t border-border pt-6 mt-6">
             <ReviewForm
               gigId={gig._id}
               revieweeId={user?._id === gig.client?._id ? gig.assignedFreelancer._id : gig.client?._id}
@@ -569,7 +569,7 @@ export default function GigDetail() {
           </div>
         )}
 
-        <div className="border-t border-white/10 pt-6 mt-6">
+        <div className="border-t border-border pt-6 mt-6">
           <h2 className="font-serif text-xl mb-4">Reviews</h2>
           <ReviewsList userId={gig.client?._id} />
         </div>
@@ -577,6 +577,8 @@ export default function GigDetail() {
     </DashboardShell>
   );
 }
+
+
 
 
 

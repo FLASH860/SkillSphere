@@ -28,19 +28,19 @@ export default function PaymentResult() {
       <div className="max-w-md mx-auto text-center py-16">
         {status === 'cancelled' && (
           <>
-            <p className="text-white/70 text-lg mb-2">Payment cancelled.</p>
-            <p className="text-white/40 text-sm font-mono mb-6">No charge was made.</p>
+            <p className="text-text-secondary text-lg mb-2">Payment cancelled.</p>
+            <p className="text-text-muted text-sm font-mono mb-6">No charge was made.</p>
           </>
         )}
 
         {status === 'success' && confirming && (
-          <p className="text-white/70 text-lg">Confirming payment...</p>
+          <p className="text-text-secondary text-lg">Confirming payment...</p>
         )}
 
         {status === 'success' && !confirming && confirmed && (
           <>
             <p className="text-sage text-lg mb-2">Payment successful</p>
-            <p className="text-white/40 text-sm font-mono mb-6">
+            <p className="text-text-muted text-sm font-mono mb-6">
               Funds are held in escrow until you release them to the freelancer.
             </p>
           </>
@@ -62,3 +62,4 @@ export default function PaymentResult() {
     </DashboardShell>
   );
 }
+

@@ -27,10 +27,10 @@ export default function VerifyEmail() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-ink px-4">
       <div className="w-full max-w-md text-center">
-        <h1 className="font-serif text-4xl text-white mb-6">SkillSphere</h1>
+        <h1 className="font-serif text-4xl text-text-primary mb-6">SkillSphere</h1>
 
         {status === 'verifying' && (
-          <p className="text-white/60 font-mono text-sm">Verifying your email...</p>
+          <p className="text-text-secondary font-mono text-sm">Verifying your email...</p>
         )}
 
         {status === 'success' && (
@@ -38,8 +38,8 @@ export default function VerifyEmail() {
             <div className="w-14 h-14 rounded-full bg-sage/20 border border-sage flex items-center justify-center mx-auto mb-4">
               <span className="text-sage text-2xl">✓</span>
             </div>
-            <p className="text-white mb-1">{message}</p>
-            <p className="text-white/50 text-sm mb-6">Your account is now verified.</p>
+            <p className="text-text-primary mb-1">{message}</p>
+            <p className="text-text-secondary text-sm mb-6">Your account is now verified.</p>
             <Link
               to="/"
               className="inline-block bg-amber text-ink font-semibold py-2 px-6 rounded hover:opacity-90 transition"
@@ -55,7 +55,7 @@ export default function VerifyEmail() {
               <span className="text-red-400 text-2xl">✕</span>
             </div>
             <p className="text-red-400 mb-1">{message}</p>
-            <p className="text-white/50 text-sm mb-6">
+            <p className="text-text-secondary text-sm mb-6">
               This link may have expired. Sign in and request a new one from your profile.
             </p>
             <Link
@@ -70,5 +70,6 @@ export default function VerifyEmail() {
     </div>
   );
 }
+
 
 

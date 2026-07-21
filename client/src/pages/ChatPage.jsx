@@ -4,6 +4,7 @@ import { useSearchParams } from 'react-router-dom';
 import { fetchConversations, fetchMessages } from '../api/messages';
 import { initSocket, getSocket } from '../api/socket';
 import { uploadToCloudinary } from '../api/upload';
+import DashboardShell from '../components/DashboardShell';
 
 const buildConversationId = (a, b) => [a, b].sort().join('_');
 
@@ -88,6 +89,8 @@ export default function ChatPage() {
           lastMessage: '',
         });
       }
+    } else if (!active && conversations.length > 0) {
+      selectConversation(conversations[0]);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startWithId, conversations.length]);
@@ -154,46 +157,47 @@ export default function ChatPage() {
   }, [messages]);
 
   return (
-    <div className="flex h-[calc(100vh-4rem)] bg-[#14192B] text-white">
-      <div className="w-72 border-r border-white/10 overflow-y-auto">
-        <h2 className="font-['Fraunces'] text-lg px-4 py-3 border-b border-white/10">Messages</h2>
+    <DashboardShell title="Messages">
+    <div className="flex h-full min-h-0 bg-ink text-text-primary -m-6 divide-x divide-border">
+      <div className="w-72 overflow-y-auto">
+        <h2 className="font-['Fraunces'] text-lg px-4 py-3 border-b border-border">Messages</h2>
         {conversations.length === 0 && (
-          <p className="px-4 py-3 text-sm text-white/40">No conversations yet.</p>
+          <p className="px-4 py-3 text-sm text-text-muted">No conversations yet.</p>
         )}
         {conversations.map((c) => (
           <button
             key={c.conversationId}
             onClick={() => selectConversation(c)}
-            className={`w-full text-left px-4 py-3 border-b border-white/5 hover:bg-white/5 transition ${
-              active?.conversationId === c.conversationId ? 'bg-white/10' : ''
+            className={`w-full text-left px-4 py-3 border-b border-border hover:bg-surface transition ${
+              active?.conversationId === c.conversationId ? 'bg-surface-alt' : ''
             }`}
           >
             <p className="font-medium text-sm">{c.otherUser?.name || 'User'}</p>
-            <p className="text-xs text-white/40 truncate font-['IBM_Plex_Mono']">
+            <p className="text-xs text-text-muted truncate font-['IBM_Plex_Mono']">
               {c.lastMessage || 'No messages yet'}
             </p>
           </button>
         ))}
       </div>
 
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col min-h-0">
         {!active ? (
-          <div className="flex-1 flex items-center justify-center text-white/30">
+          <div className="flex-1 flex items-center justify-center text-text-muted">
             Select a conversation
           </div>
         ) : (
           <>
-            <div className="px-4 py-3 border-b border-white/10 font-medium">
+            <div className="px-4 py-3 border-b border-border font-medium">
               {active.otherUser?.name}
             </div>
-            <div className="flex-1 overflow-y-auto px-4 py-3 space-y-2">
+            <div className="flex-1 overflow-y-auto px-4 py-3 space-y-2 flex flex-col justify-end">
               {messages.map((m) => {
                 const mine = (m.sender._id || m.sender) === user._id;
                 return (
                   <div key={m._id} className={`flex ${mine ? 'justify-end' : 'justify-start'}`}>
                     <div
                       className={`max-w-[70%] px-3 py-2 rounded-lg text-sm ${
-                        mine ? 'bg-[#E8A33D] text-[#14192B]' : 'bg-white/10 text-white'
+                        mine ? 'bg-amber text-ink' : 'bg-surface-alt text-text-primary'
                       }`}
                     >
                       {m.fileUrl && (
@@ -218,14 +222,14 @@ export default function ChatPage() {
                 );
               })}
               {otherTyping && (
-                <p className="text-xs text-[#6B8F71] italic">
+                <p className="text-xs text-sage italic">
                   {active.otherUser?.name} is typing...
                 </p>
               )}
               <div ref={bottomRef} />
             </div>
-            <div className="p-3 border-t border-white/10 flex gap-2">
-              <label className="cursor-pointer bg-white/5 hover:bg-white/10 rounded px-3 py-2 text-sm transition flex items-center">
+            <div className="p-3 border-t border-border flex gap-2">
+              <label className="cursor-pointer bg-surface hover:bg-surface-alt rounded px-3 py-2 text-sm transition flex items-center">
                 {uploadingFile ? '...' : '📎'}
                 <input
                   type="file"
@@ -239,11 +243,11 @@ export default function ChatPage() {
                 onChange={handleTyping}
                 onKeyDown={(e) => e.key === 'Enter' && handleSend()}
                 placeholder="Type a message..."
-                className="flex-1 bg-white/5 rounded px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#E8A33D]"
+                className="flex-1 bg-surface rounded px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-amber"
               />
               <button
                 onClick={handleSend}
-                className="bg-[#E8A33D] text-[#14192B] px-4 py-2 rounded text-sm font-medium hover:opacity-90"
+                className="bg-amber text-ink px-4 py-2 rounded text-sm font-medium hover:opacity-90"
               >
                 Send
               </button>
@@ -252,8 +256,30 @@ export default function ChatPage() {
         )}
       </div>
     </div>
+    </DashboardShell>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

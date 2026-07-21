@@ -20,7 +20,7 @@ export default function BrowseGigs() {
   });
 
   const inputClass =
-    'bg-white/5 border border-white/10 rounded px-3 py-2 text-white text-sm focus:outline-none focus:border-amber';
+    'bg-surface border border-border rounded px-3 py-2 text-text-primary text-sm focus:outline-none focus:border-amber';
 
   return (
     <DashboardShell title="Browse Gigs">
@@ -62,10 +62,10 @@ export default function BrowseGigs() {
         </select>
       </div>
 
-      {isLoading && <p className="text-white/40 font-mono text-sm">Loading gigs...</p>}
+      {isLoading && <p className="text-text-muted font-mono text-sm">Loading gigs...</p>}
 
       {!isLoading && gigs?.length === 0 && (
-        <div className="border border-dashed border-white/15 rounded-lg p-10 text-center text-white/40">
+        <div className="border border-dashed border-border rounded-lg p-10 text-center text-text-muted">
           No gigs match your filters yet.
         </div>
       )}
@@ -75,15 +75,15 @@ export default function BrowseGigs() {
           <Link
             to={`/gigs/${gig._id}`}
             key={gig._id}
-            className="bg-white/5 border border-white/10 rounded-lg p-5 hover:border-amber transition block"
+            className="bg-surface border border-border rounded-lg p-5 hover:border-amber transition block"
           >
-            <h3 className="font-serif text-lg text-white mb-1">{gig.title}</h3>
-            <p className="text-white/50 text-sm line-clamp-2 mb-3">{gig.description}</p>
+            <h3 className="font-serif text-lg text-text-primary mb-1">{gig.title}</h3>
+            <p className="text-text-secondary text-sm line-clamp-2 mb-3">{gig.description}</p>
             <div className="flex flex-wrap gap-2 mb-3">
               {gig.skillsRequired.map((s) => (
                 <span
                   key={s}
-                  className="text-xs font-mono bg-white/10 px-2 py-0.5 rounded text-white/70"
+                  className="text-xs font-mono bg-surface-alt px-2 py-0.5 rounded text-text-secondary"
                 >
                   {s}
                 </span>
@@ -93,7 +93,7 @@ export default function BrowseGigs() {
               <span className="text-amber">
                 ₹{gig.budget.min.toLocaleString()} – ₹{gig.budget.max.toLocaleString()}
               </span>
-              <span className="text-white/40">
+              <span className="text-text-muted">
                 {gig.location?.remote ? 'Remote' : gig.location?.city || '—'}
               </span>
             </div>
@@ -103,3 +103,4 @@ export default function BrowseGigs() {
     </DashboardShell>
   );
 }
+

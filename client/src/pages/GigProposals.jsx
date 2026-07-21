@@ -34,7 +34,7 @@ export default function GigProposals() {
   });
 
   const statusColor = {
-    pending: 'text-white/50',
+    pending: 'text-text-secondary',
     accepted: 'text-sage',
     rejected: 'text-red-400',
     negotiating: 'text-amber',
@@ -58,9 +58,9 @@ export default function GigProposals() {
 
   return (
     <DashboardShell title="Gig Proposals">
-      {isLoading && <p className="text-white/40 font-mono text-sm">Loading...</p>}
+      {isLoading && <p className="text-text-muted font-mono text-sm">Loading...</p>}
       {!isLoading && proposals?.length === 0 && (
-        <div className="border border-dashed border-white/15 rounded-lg p-10 text-center text-white/40">
+        <div className="border border-dashed border-border rounded-lg p-10 text-center text-text-muted">
           No proposals yet.
         </div>
       )}
@@ -71,23 +71,23 @@ export default function GigProposals() {
           const waitingOnFreelancer = p.status === 'negotiating' && lastOffer?.by === 'client';
 
           return (
-            <div key={p._id} className="bg-white/5 border border-white/10 rounded-lg p-5">
+            <div key={p._id} className="bg-surface border border-border rounded-lg p-5">
               <div className="flex justify-between items-start mb-2">
                 <div>
                   <p className="font-serif text-lg">{p.freelancer?.name}</p>
-                  <p className="text-white/40 text-xs font-mono">{p.freelancer?.email}</p>
+                  <p className="text-text-muted text-xs font-mono">{p.freelancer?.email}</p>
                 </div>
                 <span className={`text-xs font-mono uppercase ${statusColor[p.status]}`}>
                   {p.status}
                 </span>
               </div>
-              <p className="text-white/70 text-sm mb-3">{p.description}</p>
+              <p className="text-text-secondary text-sm mb-3">{p.description}</p>
 
               {p.offers?.length > 1 && (
-                <div className="mb-4 border border-white/10 rounded-lg divide-y divide-white/10 overflow-hidden">
+                <div className="mb-4 border border-border rounded-lg divide-y divide-white/10 overflow-hidden">
                   {p.offers.map((o, idx) => (
                     <div key={idx} className="px-3 py-2 flex items-center justify-between text-xs font-mono">
-                      <span className="text-white/50 capitalize">{o.by} offered</span>
+                      <span className="text-text-secondary capitalize">{o.by} offered</span>
                       <span className="text-amber">₹{o.amount.toLocaleString()} · {o.estimatedDays}d</span>
                     </div>
                   ))}
@@ -97,7 +97,7 @@ export default function GigProposals() {
               {p.offers?.length <= 1 && (
                 <div className="flex items-center gap-6 text-sm font-mono mb-4">
                   <span className="text-amber">₹{p.bidAmount.toLocaleString()}</span>
-                  <span className="text-white/40">{p.estimatedDays} days</span>
+                  <span className="text-text-muted">{p.estimatedDays} days</span>
                 </div>
               )}
 
@@ -117,7 +117,7 @@ export default function GigProposals() {
                   </button>
                   <button
                     onClick={() => statusMutation.mutate({ id: p._id, status: 'rejected' })}
-                    className="border border-white/20 text-white/70 text-sm px-4 py-1.5 rounded hover:border-red-400 hover:text-red-400"
+                    className="border border-border text-text-secondary text-sm px-4 py-1.5 rounded hover:border-red-400 hover:text-red-400"
                   >
                     Reject
                   </button>
@@ -125,28 +125,28 @@ export default function GigProposals() {
               )}
 
               {waitingOnFreelancer && (
-                <p className="text-white/40 text-xs font-mono">Waiting on freelancer's response to your counter-offer.</p>
+                <p className="text-text-muted text-xs font-mono">Waiting on freelancer's response to your counter-offer.</p>
               )}
 
               {counterFormId === p._id && (
                 <div className="mt-3 border border-amber/20 bg-amber/5 rounded-lg p-4">
                   <div className="grid grid-cols-2 gap-3 mb-3">
                     <div>
-                      <label className="block text-white/60 text-xs font-mono mb-1">Counter Amount (₹)</label>
+                      <label className="block text-text-secondary text-xs font-mono mb-1">Counter Amount (₹)</label>
                       <input
                         type="number"
                         value={counterAmount}
                         onChange={(e) => setCounterAmount(e.target.value)}
-                        className="w-full bg-white/5 border border-white/10 rounded px-3 py-1.5 text-white text-sm focus:outline-none focus:border-amber"
+                        className="w-full bg-surface border border-border rounded px-3 py-1.5 text-text-primary text-sm focus:outline-none focus:border-amber"
                       />
                     </div>
                     <div>
-                      <label className="block text-white/60 text-xs font-mono mb-1">Estimated Days</label>
+                      <label className="block text-text-secondary text-xs font-mono mb-1">Estimated Days</label>
                       <input
                         type="number"
                         value={counterDays}
                         onChange={(e) => setCounterDays(e.target.value)}
-                        className="w-full bg-white/5 border border-white/10 rounded px-3 py-1.5 text-white text-sm focus:outline-none focus:border-amber"
+                        className="w-full bg-surface border border-border rounded px-3 py-1.5 text-text-primary text-sm focus:outline-none focus:border-amber"
                       />
                     </div>
                   </div>
@@ -155,7 +155,7 @@ export default function GigProposals() {
                     value={counterMessage}
                     onChange={(e) => setCounterMessage(e.target.value)}
                     placeholder="Optional message..."
-                    className="w-full bg-white/5 border border-white/10 rounded px-3 py-1.5 text-white text-sm mb-3 focus:outline-none focus:border-amber"
+                    className="w-full bg-surface border border-border rounded px-3 py-1.5 text-text-primary text-sm mb-3 focus:outline-none focus:border-amber"
                   />
                   <div className="flex gap-2">
                     <button
@@ -167,7 +167,7 @@ export default function GigProposals() {
                     </button>
                     <button
                       onClick={() => setCounterFormId(null)}
-                      className="border border-white/20 text-white/70 text-xs px-4 py-1.5 rounded hover:border-white/40"
+                      className="border border-border text-text-secondary text-xs px-4 py-1.5 rounded hover:border-border-strong"
                     >
                       Cancel
                     </button>
@@ -181,3 +181,4 @@ export default function GigProposals() {
     </DashboardShell>
   );
 }
+

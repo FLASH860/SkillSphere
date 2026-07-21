@@ -37,8 +37,8 @@ export default function ReviewForm({ gigId, revieweeId, onSubmitted }) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-3 bg-white/5 border border-white/10 rounded-lg p-5">
-      <p className="font-serif text-lg text-white">Leave a Review</p>
+    <form onSubmit={handleSubmit} className="space-y-3 bg-surface border border-border rounded-lg p-5">
+      <p className="font-serif text-lg text-text-primary">Leave a Review</p>
       {error && (
         <div className="bg-red-500/10 border border-red-500/30 text-red-400 text-sm px-4 py-2 rounded">
           {error}
@@ -50,7 +50,7 @@ export default function ReviewForm({ gigId, revieweeId, onSubmitted }) {
         value={comment}
         onChange={(e) => setComment(e.target.value)}
         placeholder="Optional comment..."
-        className="w-full bg-white/5 border border-white/10 rounded px-4 py-2 text-white focus:outline-none focus:border-amber"
+        className="w-full bg-surface border border-border rounded px-4 py-2 text-text-primary focus:outline-none focus:border-amber"
       />
       <button
         type="submit"
@@ -62,3 +62,4 @@ export default function ReviewForm({ gigId, revieweeId, onSubmitted }) {
     </form>
   );
 }
+

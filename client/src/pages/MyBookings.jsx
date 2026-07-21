@@ -24,21 +24,21 @@ export default function MyBookings() {
 
   return (
     <DashboardShell title="My Bookings">
-      {isLoading && <p className="text-white/40 font-mono text-sm">Loading...</p>}
+      {isLoading && <p className="text-text-muted font-mono text-sm">Loading...</p>}
       {!isLoading && bookings?.length === 0 && (
-        <div className="border border-dashed border-white/15 rounded-lg p-10 text-center text-white/40">
+        <div className="border border-dashed border-border rounded-lg p-10 text-center text-text-muted">
           No booking requests yet.
         </div>
       )}
       <div className="space-y-4 max-w-2xl">
         {bookings?.map((b) => (
-          <div key={b._id} className="bg-white/5 border border-white/10 rounded-lg p-5">
+          <div key={b._id} className="bg-surface border border-border rounded-lg p-5">
             <div className="flex justify-between items-start mb-2">
               <div>
                 <Link to={`/gigs/${b.gig?._id}`} className="font-serif text-lg hover:text-amber transition">
                   {b.gig?.title}
                 </Link>
-                <p className="text-white/40 text-xs font-mono">
+                <p className="text-text-muted text-xs font-mono">
                   {b.client?.name} · {b.client?.email}
                 </p>
               </div>
@@ -48,9 +48,9 @@ export default function MyBookings() {
             </div>
             <div className="flex items-center gap-4 text-sm font-mono mb-3">
               <span className="text-amber">{b.day}</span>
-              <span className="text-white/50 capitalize">{b.slot}</span>
+              <span className="text-text-secondary capitalize">{b.slot}</span>
             </div>
-            {b.message && <p className="text-white/60 text-sm mb-3">{b.message}</p>}
+            {b.message && <p className="text-text-secondary text-sm mb-3">{b.message}</p>}
             {b.status === 'pending' && (
               <div className="flex gap-3">
                 <button
@@ -61,7 +61,7 @@ export default function MyBookings() {
                 </button>
                 <button
                   onClick={() => statusMutation.mutate({ id: b._id, status: 'declined' })}
-                  className="border border-white/20 text-white/70 text-sm px-4 py-1.5 rounded hover:border-red-400 hover:text-red-400"
+                  className="border border-border text-text-secondary text-sm px-4 py-1.5 rounded hover:border-red-400 hover:text-red-400"
                 >
                   Decline
                 </button>
@@ -73,3 +73,4 @@ export default function MyBookings() {
     </DashboardShell>
   );
 }
+
